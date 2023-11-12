@@ -1,0 +1,87 @@
+<body>
+    <div id="main">
+        <form action="#" id="review-form" style="display: none;">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Theme</label>
+                <input type="name" class="form-control" id="review-form-subject-inp" placeholder="About simple Bangalore's guide">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Text</label>
+                <textarea class="form-control" id="review-form-text-inp" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-danger" id="btn-remark">Send</button>
+        </form>
+    </div>
+    <div class="remarks">
+        <table class="table table-bordered table-dark th">
+            <label for="exampleFormControlTextarea1" class="form-label">Отзывы</label>
+            <thead>
+                <tr>
+                    <th>id_user</th><th>Тема гайда</th> <th>Описание, впечатления о гайде</th>
+                </tr>
+            </thead>
+            {{#each remarks}}
+                <tr>
+                    <td>{{this.ID_user}}</td>
+                    <td>{{this.subject}}</td>
+                    <td>{{this.text}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+</body>
+
+<script>
+    //видимоcть блока для авторизованных
+    if (userName !== null) {
+        document.getElementById("review-form").style.display = "block";
+    };
+    //отлавливание кнопки "выход" с header => сокрытие блока для добавки отзыва
+    document.getElementById("logOut").addEventListener("click", e => {
+        e.preventDefault();
+        document.getElementById("review-form").style.display = "none";
+    });
+
+    document.getElementById("btn-remark").addEventListener("click", e => {
+        e.preventDefault();
+        // получаем данные формы для ввода отзыва
+        let avtorizForm = document.forms["review-form"];
+        let subject_inp = avtorizForm.elements["review-form-subject-inp"].value;
+        let text_inp = avtorizForm.elements["review-form-text-inp"].value;
+        let jwt = localStorage.getItem("token");
+        if (!jwt) {
+            //маршрут на авторизацию
+            return null;
+        }
+        //формируем тело запроса, но теперь в json
+        var body = `{
+            "jwt": "${localStorage.getItem("token")}",
+            "subject": "${subject_inp}",
+            "text": "${text_inp}"
+        }`;
+        //делаем ajax POST запрос к серверу
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/remarks-all', true);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader('Content-Type', "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    //добавить отзыв
+                    console.log("отзыв в БД внесен");
+                    console.log(body);
+                    window.location.reload();
+
+                } else if (xhr.status == 403 || xhr.status == 401) {
+                    //видимость блока об ошибке
+                } else {
+                    //
+                    ;
+                }
+
+            }
+        }
+        xhr.send(body);
+        });
+    </script>

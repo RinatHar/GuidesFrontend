@@ -1,0 +1,199 @@
+:root {
+    --color-main: #750101;
+    --color-border: #333000;
+    --color-bg: white;
+    --color-text: black;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 70px;
+}
+
+.body-top {
+    width: 80%;
+    border: none;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+}
+
+header {
+    margin: 20px;
+    padding: 15px;
+    color: white;
+    background-color: var(--bs-red);
+    vertical-align: center;
+    border-radius: 10px;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    color: white;
+    background-color: var(--bs-red);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.col-3 {
+    display: flex;
+}
+
+.col-6 {
+    display: flex;
+}
+
+h1 {
+    margin: auto;
+}
+
+#menu {
+    margin: 20px;
+}
+
+.navbar-custom{
+    color: white;
+}
+
+a.navbar-text {
+    color: var(--bs-red);
+}
+
+a.navbar-text:hover {
+    color: var(--bs-red);
+}
+
+a.navbar-text:focus  {
+    color: var(--bs-red);
+}
+
+.nav-pills .nav-link.active {
+    color: white;
+    background-color: var(--bs-red);
+}
+
+.guide {
+    border: var(--bs-red) solid 4px;
+    border-radius: 10px;
+}
+
+.guide img {
+    width: 300px;
+    height: 180px;
+    padding: 15px;
+    border-radius: 30px;
+}
+
+.guide a {
+    padding: 5px;
+}
+
+.about_guide button {
+    margin: 10px;
+}
+
+div#main {
+    color: var(--color-text);
+    font-weight: normal;
+    text-align: justify;
+}
+
+a.buy-button {
+    color: white;
+}
+
+.modal-body {
+    text-align: left;
+}
+
+label.label {
+    margin: 5px 0 5px 5px;
+}
+
+#auth {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+}
+
+#userInfo {
+    position: absolute;
+    top: 40%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px;
+    height: 80px;
+}
+
+#auth_blok {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px;
+    height: 80px;
+}
+
+#link_auth {
+    margin-top: 10px;
+}
+
+.btn-outline-light:hover {
+    color: var(--bs-red);
+}
+
+.btn-outline-light:focus {
+    color: var(--bs-red);
+}
+
+.table > :not(caption) > * > * {
+   background-color: var(--bs-red);; // Choose your own color here
+ }
+
+.th {
+    border-color: white;
+}
+
+.remarks {
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 768px)
+{
+    #logo {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    #auth {
+        width: 100px;
+        height: 100px;
+    }
+
+    #userInfo {
+        top: 20%;
+        width: 50px;
+        height: 50px;
+    }
+
+}

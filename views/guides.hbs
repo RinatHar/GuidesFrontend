@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col">
+        <h2>Guides</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col" style="margin: 5px;">
+        <div class="guide">
+            <img src="images/caustic.jpg" alt="caustic">
+            <h3>Caustic</h3>
+            <div class="about_guide">
+                <a href="#" class="btn btn-outline-danger">Learn more about the guide</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">Buy a guide</button>
+            </div>
+        </div>
+    </div>
+    <div class="col" style="margin: 5px;">
+        <div class="guide">
+            <img src="images/horizon.png" alt="horizon">
+            <h3>Horizon</h3>
+            <div class="about_guide">
+                <a href="#" class="btn btn-outline-danger">Learn more about the guide</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">Buy a guide</button>
+            </div>
+        </div>
+    </div>
+    <div class="col" style="margin: 5px;">
+        <div class="guide">
+            <img src="images/bloodhound.jpg" alt="bloodhound">
+            <h3>Bloodhound</h3>
+            <div class="about_guide">
+                <a href="#" class="btn btn-outline-danger">Learn more about the guide</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">Buy a guide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Making an order</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="#" method="get" id="orderForm">
+            <div class="modal-body" style="max-width: 600px">
+                <label for="inp1" class="label">
+                    Select a legend:
+                </label>
+                <select id="inp1" class="form-select" aria-label="Default select example">
+                    <option value="Caustic" selected>Caustic</option>
+                    <option value="Horizon">Horizon</option>
+                    <option value="Bloodhound">Bloodhound</option>
+                </select>
+
+                <label for="inp2" class="label">
+                    Select the difficulty level:
+                </label>
+                <select id="inp2" class="form-select" aria-label="Default select example">
+                    <option value="Easy" selected>Easy</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Hard">Hard</option>
+                    <option value="Professional">Professional</option>
+                </select>
+
+                <label for="inp3" class="label">
+                    Your email:
+                </label>
+                <input type="email" class="form-control" id="inp3" placeholder="name@example.com">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" id="submit" class="btn btn-primary">Make an order</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+    
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    $('#orderForm').on('submit', function ()
+    {
+        let legend = $("#inp1").val();
+
+        let level = $("#inp2").val();
+
+        let email = $("#inp3").val();
+
+        const money = 1;
+        let price = 0;
+        console.log(legend, level, email, money);
+        switch(level) {
+            case 'Easy':
+                price = money*5;
+                break;
+            case 'Normal':
+                price = money*10;
+                break;
+            case 'Hard':
+                price = money*25;
+                break;
+            case 'Professional':
+                price = money*35;
+                break;
+        };
+        console.log(price);
+        alert(`The approximate cost of your '${level}' level guide to ${legend} ` + 
+        `- ${price}$, we will contact you at ${email}!`);
+
+    });
+</script>

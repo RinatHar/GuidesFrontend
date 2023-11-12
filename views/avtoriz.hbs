@@ -1,0 +1,94 @@
+<h2>Авторизация</h2>
+<div id="userInfo" style="display:none;">
+    <p>Добро пожаловать <span id="userName"></span>! Вам стало доступно оставлять
+        <a href="/remarks-all">отзывы о туре</a>
+    </p>
+    <input type="button" value="Выйти" id="logOut" />
+
+</div>
+<form method="post" id="avtorizForm">
+    <p>
+        <label> Ваш логин:<br></label>
+        <input name="login" type="text" id="login" size="30" maxlength="30">
+    </p>
+    <p>
+        <label> Ваш пароль:<br></label>
+        <input name="pass" type="password" id="pass" size="20" maxlength="20">
+    </p>
+    <p>
+        <input type="submit" id="submitLogin" name="submit" value="Войти">
+    </p>
+    <div id="wrong-pass-message" style="display: none;">
+        <p>
+            <h3>Введен неверный логин или пароль</h3>
+        </p>
+    </div>
+</form>
+<p>
+    <a href="/">На главную страницу</a>
+    или
+    <a href="/create"> страницу регистрации</a>
+</p>
+
+<script>
+    console.log("зашли0");
+
+    document.getElementById("submitLogin").addEventListener("click", e => {
+        e.preventDefault();
+        // получаем данные формы
+        let avtorizForm = document.forms["avtorizForm"];
+        let userLogin = avtorizForm.elements["login"].value;
+        let userPass = avtorizForm.elements["pass"].value;
+        //формируем тело запроса
+        var body = 'login=' + userLogin + '&pass=' + userPass;
+        console.log(body);
+        //делаем ajax запрос к серверу
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/avtoriz', true);
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                console.log(xhr.responseText);
+                if (xhr.status == 200) {
+                    let res = JSON.parse(xhr.responseText);
+                    let name = res.name;
+                    let jwt = res.token;
+                    localStorage.setItem("name", name);
+                    localStorage.setItem("token", jwt);
+                    //меняем видимость блока и формы
+                    document.getElementById("userInfo").style.display = "block";
+                    document.getElementById("userName").innerText = name;
+                    document.getElementById("avtorizForm").style.display = "none";
+                    document.getElementById("auth_blok").style.display = "none";
+                    window.location.href = '/';
+
+            } else if (xhr.status == 403 || xhr.status == 401) {
+                //видимость блока об ошибке
+                // $("#wrong-pass-message").show();
+                document.getElementById("wrong-pass-message").style.display = "block";
+            } else {
+                //маршрут на отзывы с возможностью добавления
+                ;
+            }
+        }
+    }
+
+    xhr.send(body);
+    });
+
+    console.log("зашли1");
+    // условный выход - удаляем токен, меняем видимость блоков и очищаем форму
+    document.getElementById("logOut").addEventListener("click", e => {
+        e.preventDefault();
+        document.getElementById("userName").innerText = "";
+        document.getElementById("userInfo").style.display = "none";
+        document.getElementById("avtorizForm").style.display = "block";
+        document.getElementById('avtorizForm').reset()
+        document.getElementById("wrong-pass-message").style.display = "none";
+        localStorage.removeItem("name");
+        localStorage.removeItem("token");
+    });
+</script>

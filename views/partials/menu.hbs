@@ -1,0 +1,22 @@
+<div id="menu">
+    <nav class="nav nav-pills flex-column flex-sm-row navbar-custom">
+        <a class="flex-sm-fill text-sm-center nav-link navbar-text" href="/">Main</a>
+        <a class="flex-sm-fill text-sm-center nav-link navbar-text" href="/guides">Guides</a>
+        <a class="flex-sm-fill text-sm-center nav-link navbar-text" href="/remarks-all">Remarks</a>
+    </nav>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let navLinks = document.querySelectorAll('.nav-link');
+        let currentPath = window.location.pathname;
+
+        navLinks.forEach((link) => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    });
+</script>
